@@ -1,0 +1,347 @@
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+/* ---- Top bar / tabs ---- */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+.logo {
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+.logo-dot {
+  color: var(--accent);
+}
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+}
+.tab {
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.tab:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+.tab-active {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.content {
+  padding-top: 1.5rem;
+}
+
+/* ---- Common ---- */
+.muted {
+  color: var(--muted);
+}
+.error {
+  color: var(--danger);
+}
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.btn:hover {
+  filter: brightness(1.1);
+}
+.btn-sm {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+.btn-ghost {
+  background: none;
+  color: var(--muted);
+  padding: 0.4rem 0;
+  margin-bottom: 1rem;
+}
+.btn-ghost:hover {
+  color: var(--text);
+}
+.btn-danger {
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+.status-watching {
+  color: var(--accent);
+}
+.status-completed {
+  color: var(--accent-2);
+}
+.status-plan {
+  color: var(--muted);
+}
+
+/* ---- Search ---- */
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+.search-input:focus {
+  outline: 2px solid var(--accent);
+  border-color: transparent;
+}
+
+/* ---- Grid of show cards ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.card-poster {
+  border: none;
+  padding: 0;
+  background: var(--surface-2);
+  aspect-ratio: 2 / 3;
+  display: block;
+}
+.card-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.poster-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.card-body {
+  padding: 0.6rem 0.7rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.card-body h3 {
+  font-size: 0.92rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-body p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+/* ---- Filters ---- */
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.chip-active {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.chip-count {
+  background: var(--surface-2);
+  border-radius: 999px;
+  padding: 0 0.4rem;
+  font-size: 0.75rem;
+}
+
+/* ---- Detail ---- */
+.detail-header {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.detail-backdrop {
+  width: 220px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.detail-header > div {
+  flex: 1;
+  min-width: 260px;
+}
+.overview {
+  color: var(--text);
+  line-height: 1.5;
+  font-size: 0.92rem;
+  max-width: 60ch;
+}
+.detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+}
+
+/* ---- Seasons / episodes ---- */
+.season {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.season-head {
+  width: 100%;
+  background: var(--surface);
+  border: none;
+  color: var(--text);
+  padding: 0.8rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+.season-head:hover {
+  background: var(--surface-2);
+}
+.season-body {
+  padding: 0.8rem 1rem;
+}
+.episodes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ep {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.ep input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+.ep.watched .ep-name {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.ep-num {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 2.2rem;
+}
+.ep-name {
+  flex: 1;
+}
+.ep-date {
+  font-size: 0.8rem;
+}
+
+/* ---- Calendar ---- */
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.cal-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+  color: var(--text);
+  text-align: left;
+}
+.cal-row:hover {
+  border-color: var(--accent);
+}
+.cal-date {
+  min-width: 6.5rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+.cal-poster {
+  width: 34px;
+  height: 51px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.cal-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Footer ---- */
+.footer {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
