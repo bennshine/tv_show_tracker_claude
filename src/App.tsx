@@ -4,13 +4,17 @@ import { SearchView } from './components/SearchView'
 import { LibraryView } from './components/LibraryView'
 import { CalendarView } from './components/CalendarView'
 import { ShowDetail } from './components/ShowDetail'
+import { SettingsView } from './components/SettingsView'
+import { hasApiKey } from './api/key'
 import './App.css'
 
-type Tab = 'library' | 'search' | 'calendar'
+type Tab = 'library' | 'search' | 'calendar' | 'settings'
 
 export default function App() {
-  const [tab, setTab] = useState<Tab>('library')
+  const [tab, setTab] = useState<Tab>(hasApiKey() ? 'library' : 'settings')
   const [openShowId, setOpenShowId] = useState<number | null>(null)
+  // Bumped when the API key is saved, to remount data views so they refetch.
+  const [keyVersion, setKeyVersion] = useState(0)
 
   return (
     <LibraryProvider>
@@ -20,7 +24,7 @@ export default function App() {
             twee<span className="logo-dot">•</span>
           </h1>
           <nav className="tabs">
-            {(['library', 'search', 'calendar'] as Tab[]).map((t) => (
+            {(['library', 'search', 'calendar', 'settings'] as Tab[]).map((t) => (
               <button
                 key={t}
                 className={`tab ${tab === t && openShowId === null ? 'tab-active' : ''}`}
@@ -35,9 +39,21 @@ export default function App() {
           </nav>
         </header>
 
-        <main className="content">
+        {!hasApiKey() && tab !== 'settings' && (
+          <div className="banner">
+            No TMDB API key set.{' '}
+            <button className="link-btn" onClick={() => setTab('settings')}>
+              Add your key in Settings
+            </button>{' '}
+            to start tracking shows.
+          </div>
+        )}
+
+        <main className="content" key={keyVersion}>
           {openShowId !== null ? (
             <ShowDetail id={openShowId} onBack={() => setOpenShowId(null)} />
+          ) : tab === 'settings' ? (
+            <SettingsView onSaved={() => setKeyVersion((v) => v + 1)} />
           ) : tab === 'library' ? (
             <LibraryView onOpen={setOpenShowId} />
           ) : tab === 'search' ? (

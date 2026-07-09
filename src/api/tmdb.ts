@@ -1,7 +1,7 @@
 import type { TmdbShow, TmdbEpisode } from '../types'
+import { getApiKey } from './key'
 
 const BASE = 'https://api.themoviedb.org/3'
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY as string | undefined
 
 export const IMG = {
   poster: (path: string | null, size: 'w185' | 'w342' | 'w500' = 'w342') =>
@@ -13,13 +13,12 @@ export const IMG = {
 export class TmdbError extends Error {}
 
 async function get<T>(path: string, params: Record<string, string> = {}): Promise<T> {
-  if (!API_KEY) {
-    throw new TmdbError(
-      'Missing TMDB API key. Copy .env.example to .env and set VITE_TMDB_API_KEY.',
-    )
+  const apiKey = getApiKey()
+  if (!apiKey) {
+    throw new TmdbError('No TMDB API key set. Add your key in Settings to get started.')
   }
   const url = new URL(BASE + path)
-  url.searchParams.set('api_key', API_KEY)
+  url.searchParams.set('api_key', apiKey)
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v)
 
   const res = await fetch(url)

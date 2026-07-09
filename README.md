@@ -6,6 +6,9 @@ watchlist, and see upcoming air dates. A web port of the TWEE Android app concep
 Built with **React + Vite + TypeScript**, powered by the **TMDB API**. Your library is
 stored locally in the browser (`localStorage`), so no account or backend is required.
 
+**Live demo:** https://bennshine.github.io/tv_show_tracker_claude/ — bring your own free
+TMDB key (entered in Settings, stored only in your browser).
+
 ## Features
 
 - 🔍 **Search & add shows** — live search against The Movie Database
