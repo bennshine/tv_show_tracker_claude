@@ -307,36 +307,70 @@ select {
 .calendar {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
 }
 .cal-row {
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.6rem 0.9rem;
+  /* Dark gradient overlay sits on top of the show backdrop for legibility. */
+  background-color: var(--surface);
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.1rem;
+  min-height: 84px;
   color: var(--text);
   text-align: left;
+  position: relative;
+  isolation: isolate;
 }
-.cal-row:hover {
-  border-color: var(--accent);
+.cal-row:last-child {
+  border-bottom: none;
+}
+/* Overlay that darkens the backdrop so text stays readable. */
+.cal-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(15, 17, 21, 0.92) 0%,
+    rgba(15, 17, 21, 0.72) 45%,
+    rgba(15, 17, 21, 0.55) 100%
+  );
+}
+.cal-row:hover::before {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 17, 21, 0.85) 0%,
+    rgba(15, 17, 21, 0.6) 45%,
+    rgba(15, 17, 21, 0.4) 100%
+  );
 }
 .cal-date {
   min-width: 6.5rem;
   color: var(--accent);
   font-size: 0.9rem;
-}
-.cal-poster {
-  width: 34px;
-  height: 51px;
-  object-fit: cover;
-  border-radius: 4px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 .cal-info {
   display: flex;
   flex-direction: column;
+  gap: 0.15rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+.cal-info strong {
+  font-size: 1.02rem;
+}
+.cal-sub {
+  color: #d5d9e2;
+  font-size: 0.88rem;
 }
 
 /* ---- Banner & settings ---- */

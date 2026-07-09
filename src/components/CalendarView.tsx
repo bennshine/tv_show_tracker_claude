@@ -5,7 +5,7 @@ import { useLibrary } from '../store/library'
 interface Upcoming {
   showId: number
   showName: string
-  poster_path: string | null
+  backdrop_path: string | null
   episodeName: string
   season: number
   episode: number
@@ -33,7 +33,7 @@ export function CalendarView({ onOpen }: { onOpen: (id: number) => void }) {
           return {
             showId: s.id,
             showName: s.name,
-            poster_path: s.poster_path,
+            backdrop_path: full.backdrop_path,
             episodeName: next.name,
             season: next.season_number,
             episode: next.episode_number,
@@ -68,24 +68,29 @@ export function CalendarView({ onOpen }: { onOpen: (id: number) => void }) {
 
   return (
     <section className="calendar">
-      {items.map((item) => (
-        <button
-          className="cal-row"
-          key={item.showId}
-          onClick={() => onOpen(item.showId)}
-        >
-          <span className="cal-date">{formatDate(item.airDate)}</span>
-          {IMG.poster(item.poster_path, 'w185') && (
-            <img className="cal-poster" src={IMG.poster(item.poster_path, 'w185')!} alt="" />
-          )}
-          <span className="cal-info">
-            <strong>{item.showName}</strong>
-            <span className="muted">
-              S{item.season}E{item.episode} · {item.episodeName}
+      {items.map((item) => {
+        const backdrop = IMG.poster(item.backdrop_path, 'w500')
+        return (
+          <button
+            className="cal-row"
+            key={item.showId}
+            onClick={() => onOpen(item.showId)}
+            style={
+              backdrop
+                ? { backgroundImage: `url(${backdrop})` }
+                : undefined
+            }
+          >
+            <span className="cal-date">{formatDate(item.airDate)}</span>
+            <span className="cal-info">
+              <strong>{item.showName}</strong>
+              <span className="cal-sub">
+                S{item.season}E{item.episode} · {item.episodeName}
+              </span>
             </span>
-          </span>
-        </button>
-      ))}
+          </button>
+        )
+      })}
     </section>
   )
 }
