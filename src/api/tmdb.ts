@@ -8,6 +8,8 @@ export const IMG = {
     path ? `https://image.tmdb.org/t/p/${size}${path}` : null,
   still: (path: string | null) =>
     path ? `https://image.tmdb.org/t/p/w300${path}` : null,
+  backdrop: (path: string | null, size: 'w780' | 'w1280' = 'w1280') =>
+    path ? `https://image.tmdb.org/t/p/${size}${path}` : null,
 }
 
 export class TmdbError extends Error {}

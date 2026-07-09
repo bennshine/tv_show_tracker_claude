@@ -23,47 +23,61 @@ export function ShowDetail({ id, onBack }: { id: number; onBack: () => void }) {
   if (error) return <BackShell onBack={onBack}><p className="error">{error}</p></BackShell>
   if (!show) return <BackShell onBack={onBack}><p className="muted">Loading…</p></BackShell>
 
-  const backdrop = IMG.poster(show.backdrop_path, 'w500')
+  const backdrop = IMG.backdrop(show.backdrop_path)
+  const poster = IMG.poster(show.poster_path, 'w342')
   const seasons = (show.seasons ?? []).filter((s) => s.season_number > 0)
 
   return (
     <BackShell onBack={onBack}>
-      <div className="detail-header">
-        {backdrop && <img className="detail-backdrop" src={backdrop} alt="" />}
-        <div>
-          <h2>{show.name}</h2>
-          <p className="muted">
-            {show.first_air_date?.slice(0, 4)} · {show.number_of_seasons} season
-            {show.number_of_seasons === 1 ? '' : 's'} · ★ {show.vote_average.toFixed(1)}
-          </p>
-          <p className="overview">{show.overview || 'No description available.'}</p>
-
-          {tracked ? (
-            <div className="detail-actions">
-              <label className="muted">
-                Status:{' '}
-                <select
-                  value={tracked.status}
-                  onChange={(e) => setStatus(id, e.target.value as WatchStatus)}
-                >
-                  {(Object.keys(STATUS_LABELS) as WatchStatus[]).map((s) => (
-                    <option key={s} value={s}>
-                      {STATUS_LABELS[s]}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button className="btn btn-danger" onClick={() => removeShow(id)}>
-                Remove
-              </button>
-            </div>
+      <div className="detail-hero">
+        {backdrop && (
+          <div
+            className="detail-hero-bg"
+            style={{ backgroundImage: `url(${backdrop})` }}
+          />
+        )}
+        <div className="detail-hero-content">
+          {poster ? (
+            <img className="detail-poster" src={poster} alt={show.name} />
           ) : (
-            <button className="btn" onClick={() => addShow(show)}>
-              + Add to library
-            </button>
+            <div className="detail-poster poster-fallback">{show.name}</div>
           )}
+          <div className="detail-meta">
+            <h2>{show.name}</h2>
+            <p className="detail-facts">
+              {show.first_air_date?.slice(0, 4)} · {show.number_of_seasons} season
+              {show.number_of_seasons === 1 ? '' : 's'}
+              {show.vote_average ? ` · ★ ${show.vote_average.toFixed(1)}` : ''}
+            </p>
+            {tracked ? (
+              <div className="detail-actions">
+                <label>
+                  Status{' '}
+                  <select
+                    value={tracked.status}
+                    onChange={(e) => setStatus(id, e.target.value as WatchStatus)}
+                  >
+                    {(Object.keys(STATUS_LABELS) as WatchStatus[]).map((s) => (
+                      <option key={s} value={s}>
+                        {STATUS_LABELS[s]}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button className="btn btn-danger" onClick={() => removeShow(id)}>
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <button className="btn" onClick={() => addShow(show)}>
+                + Add to library
+              </button>
+            )}
+          </div>
         </div>
       </div>
+
+      <p className="overview">{show.overview || 'No description available.'}</p>
 
       {isTracked(id) ? (
         <div className="seasons">
