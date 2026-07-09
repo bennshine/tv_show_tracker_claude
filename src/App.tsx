@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { LibraryProvider } from './store/library'
 import { SearchView } from './components/SearchView'
+import { TrendingView } from './components/TrendingView'
 import { LibraryView } from './components/LibraryView'
 import { CalendarView } from './components/CalendarView'
 import { ShowDetail } from './components/ShowDetail'
@@ -8,7 +9,7 @@ import { SettingsView } from './components/SettingsView'
 import { hasApiKey } from './api/key'
 import './App.css'
 
-type Tab = 'library' | 'search' | 'calendar' | 'settings'
+type Tab = 'library' | 'trending' | 'search' | 'calendar' | 'settings'
 
 export default function App() {
   const [tab, setTab] = useState<Tab>(hasApiKey() ? 'library' : 'settings')
@@ -24,7 +25,7 @@ export default function App() {
             twee<span className="logo-dot">•</span>
           </h1>
           <nav className="tabs">
-            {(['library', 'search', 'calendar', 'settings'] as Tab[]).map((t) => (
+            {(['library', 'trending', 'search', 'calendar', 'settings'] as Tab[]).map((t) => (
               <button
                 key={t}
                 className={`tab ${tab === t && openShowId === null ? 'tab-active' : ''}`}
@@ -56,6 +57,8 @@ export default function App() {
             <SettingsView onSaved={() => setKeyVersion((v) => v + 1)} />
           ) : tab === 'library' ? (
             <LibraryView onOpen={setOpenShowId} />
+          ) : tab === 'trending' ? (
+            <TrendingView onOpen={setOpenShowId} />
           ) : tab === 'search' ? (
             <SearchView onOpen={setOpenShowId} />
           ) : (

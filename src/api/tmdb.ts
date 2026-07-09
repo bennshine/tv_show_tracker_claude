@@ -34,6 +34,13 @@ export async function searchShows(query: string): Promise<TmdbShow[]> {
   return data.results
 }
 
+export async function getTrending(
+  window: 'day' | 'week' = 'week',
+): Promise<TmdbShow[]> {
+  const data = await get<{ results: TmdbShow[] }>(`/trending/tv/${window}`)
+  return data.results
+}
+
 export function getShow(id: number): Promise<TmdbShow> {
   return get<TmdbShow>(`/tv/${id}`)
 }
