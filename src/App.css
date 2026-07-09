@@ -307,7 +307,6 @@ select {
 .calendar {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 .cal-row {
   display: flex;
@@ -318,16 +317,24 @@ select {
   background-position: center 30%;
   background-repeat: no-repeat;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1rem 1.1rem;
   min-height: 96px;
   color: #fff;
   text-align: left;
   position: relative;
   isolation: isolate;
+  /* Overlap each row slightly onto the one above, like stacked cards. */
+  margin-top: -18px;
+  border-radius: 4px;
+  box-shadow: 0 -8px 18px rgba(0, 0, 0, 0.5);
 }
-.cal-row:last-child {
-  border-bottom: none;
+.cal-row:first-child {
+  margin-top: 0;
+  box-shadow: none;
+}
+/* Later rows paint on top of earlier ones for a clean stacked look. */
+.cal-row:hover {
+  z-index: 1;
 }
 /* Light left-side scrim only — just enough to keep the text readable. */
 .cal-row::before {
