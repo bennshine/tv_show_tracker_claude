@@ -307,24 +307,21 @@ select {
 .calendar {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: 12px;
   overflow: hidden;
 }
 .cal-row {
   display: flex;
   align-items: center;
   gap: 1rem;
-  /* Dark gradient overlay sits on top of the show backdrop for legibility. */
   background-color: var(--surface);
   background-size: cover;
   background-position: center 30%;
   background-repeat: no-repeat;
   border: none;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1rem 1.1rem;
-  min-height: 84px;
-  color: var(--text);
+  min-height: 96px;
+  color: #fff;
   text-align: left;
   position: relative;
   isolation: isolate;
@@ -332,7 +329,7 @@ select {
 .cal-row:last-child {
   border-bottom: none;
 }
-/* Overlay that darkens the backdrop so text stays readable. */
+/* Light left-side scrim only — just enough to keep the text readable. */
 .cal-row::before {
   content: '';
   position: absolute;
@@ -340,36 +337,37 @@ select {
   z-index: -1;
   background: linear-gradient(
     90deg,
-    rgba(15, 17, 21, 0.92) 0%,
-    rgba(15, 17, 21, 0.72) 45%,
-    rgba(15, 17, 21, 0.55) 100%
+    rgba(15, 17, 21, 0.55) 0%,
+    rgba(15, 17, 21, 0.15) 40%,
+    rgba(15, 17, 21, 0) 70%
   );
 }
 .cal-row:hover::before {
   background: linear-gradient(
     90deg,
-    rgba(15, 17, 21, 0.85) 0%,
-    rgba(15, 17, 21, 0.6) 45%,
-    rgba(15, 17, 21, 0.4) 100%
+    rgba(15, 17, 21, 0.4) 0%,
+    rgba(15, 17, 21, 0.05) 40%,
+    rgba(15, 17, 21, 0) 70%
   );
 }
 .cal-date {
   min-width: 6.5rem;
-  color: var(--accent);
+  color: #fff;
+  font-weight: 600;
   font-size: 0.9rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 .cal-info {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 1), 0 0 12px rgba(0, 0, 0, 0.8);
 }
 .cal-info strong {
-  font-size: 1.02rem;
+  font-size: 1.05rem;
 }
 .cal-sub {
-  color: #d5d9e2;
+  color: #eef0f4;
   font-size: 0.88rem;
 }
 
